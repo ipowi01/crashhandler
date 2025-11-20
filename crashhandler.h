@@ -1,9 +1,9 @@
 //
-// Created by ádám on 2025. 11. 20..
+// Created by ádám on 2024. 12. 10..
 //
 
-#ifndef HSN_LISP_CRASHHANDLER_H
-#define HSN_LISP_CRASHHANDLER_H
+#ifndef CRASHHANDLER_H
+#define CRASHHANDLER_H
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,4 +33,5 @@ int WINAPI crashhandler(EXCEPTION_POINTERS *ep) {
     ExitProcess(code);
 }
 #define INIT_CRASH_HANDLER SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER) crashhandler)
-#endif //HSN_LISP_CRASHHANDLER_H
+#endif //CRASHHANDLER_H
+
