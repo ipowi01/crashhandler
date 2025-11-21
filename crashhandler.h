@@ -1,4 +1,9 @@
 //
+// Created by pongoradam on 2025.11.21.
+//
+
+
+//
 // Created by ádám on 2024. 12. 10..
 //
 
@@ -7,7 +12,8 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-int WINAPI crashhandler(EXCEPTION_POINTERS *ep) {
+
+inline int WINAPI crashhandler(EXCEPTION_POINTERS *ep) {
     unsigned code = ep->ExceptionRecord->ExceptionCode;
 
     switch (code) {
@@ -18,11 +24,18 @@ int WINAPI crashhandler(EXCEPTION_POINTERS *ep) {
             fprintf(stderr,"Program crashed: illegal instruction");
             break;
         case EXCEPTION_INT_DIVIDE_BY_ZERO:
-            fprintf(stderr,"You tried to divide by zero dumbass");
+            fprintf(stderr,"You tried to divide an int by zero dumbass");
+            break;
+        case EXCEPTION_FLT_DIVIDE_BY_ZERO:
+            fprintf(stderr, "You tried to divide a float by zero dumbass");
             break;
         case EXCEPTION_STACK_OVERFLOW:
             fprintf(stderr,"Program crashed: stack overflow");
             break;
+        case EXCEPTION_BREAKPOINT:
+            fprintf(stderr,"Program crashed: breakpoint");
+            break;
+
         default:
             fprintf(stderr,"Unhandled exception: 0x%08X\n", code);
     }
@@ -34,4 +47,3 @@ int WINAPI crashhandler(EXCEPTION_POINTERS *ep) {
 }
 #define INIT_CRASH_HANDLER SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER) crashhandler)
 #endif //CRASHHANDLER_H
-
